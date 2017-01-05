@@ -21,22 +21,26 @@ local bad_words = dofile(modpath..'/word_list.lua')
 
 local not_pg = function(s)
 	s = s:lower()
+	local match = nil
 	for _, word in pairs(bad_words) do
-		if string.find(s, word, 1, false) then
-			return true
+		match = string.match(s, word)
+		if match then
+			break
 		end
 	end
+	return match
 end
 
 local filter = function(name, message)
-	if not_pg(message) then
-		minetest.log('action', 'CHAT: filtered <'..name..'> '..message)
+	local is_not_pg = not_pg(message)
+	if is_not_pg then
+		minetest.log('action', 'CHAT: filtered "'..is_not_pg..'" <'..name..'> '..message)
 		minetest.chat_send_player(name, 'Please keep global chat rated PG.')
 		minetest.sound_play('chat_filter_censor', {to_player = name, gain = 0.2})
 		return true
 	end
 	if message:len() > 12 and message == message:upper() then
-		minetest.log('action', 'CHAT: filtered <'..name..'> '..message)
+		minetest.log('action', 'CHAT: filtered CAPS <'..name..'> '..message)
 		minetest.chat_send_player(name, 'Please don\'t use all caps.')
 		minetest.sound_play('chat_filter_censor', {to_player = name, gain = 0.2})
 		return true
