@@ -32,13 +32,13 @@ local filter = function(name, message)
 	if not_pg(message) then
 		minetest.log('action', 'CHAT: filtered <'..name..'> '..message)
 		minetest.chat_send_player(name, 'Please keep global chat rated PG.')
-		minetest.sound_play('chat_filter_censor', {to_player = sendto, gain = 0.2})
+		minetest.sound_play('chat_filter_censor', {to_player = name, gain = 0.2})
 		return true
 	end
 	if message:len() > 12 and message == message:upper() then
 		minetest.log('action', 'CHAT: filtered <'..name..'> '..message)
 		minetest.chat_send_player(name, 'Please don\'t use all caps.')
-		minetest.sound_play('chat_filter_censor', {to_player = sendto, gain = 0.2})
+		minetest.sound_play('chat_filter_censor', {to_player = name, gain = 0.2})
 		return true
 	end
 end
