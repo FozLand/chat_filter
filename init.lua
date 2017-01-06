@@ -2,7 +2,7 @@
 Copyright (C) 2017 John Cole
 This file is part of Chat Filter.
 
-Stats is free software: you can redistribute it and/or modify
+Chat Filter is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 (at your option) any later version.
@@ -57,3 +57,10 @@ if minetest.chatcommands['me'] then
 		return filter(name, param) or org(name, param)
 	end
 end
+
+minetest.register_on_prejoinplayer(function(name, ip)
+	local is_not_pg = not_pg(name)
+	if is_not_pg then
+		return 'Please choose a PG rated name.'
+	end
+end)
