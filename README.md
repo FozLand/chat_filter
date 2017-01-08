@@ -12,3 +12,7 @@ Copyright (C) 2017 John Cole
 License of chat_filter_censor.ogg:
 ----------------------------------
 CC BY-SA
+
+This site was very helpful in determining how to write the filters:
+
+http://www.wordfind.com/contains/
